@@ -1,2 +1,2 @@
-user: jmhobbs
+username: jmhobbs
 google_analytics: False

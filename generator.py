@@ -60,7 +60,7 @@ for repo in repos:
 		repo_string = repo_string + '<br/><br/>'
 		pass
 		
-	repo_string = repo_string + '</div><!--// .repo //-->'
+	repo_string = repo_string + "</div><!--// .repo //-->\n"
 
 template = template.replace( '<% repos %>', repo_string )
 
