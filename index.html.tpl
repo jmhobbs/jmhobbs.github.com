@@ -15,11 +15,11 @@
 				width: 700px;
 			}
 			h1 { font-size: 3.8em; color: #000000; margin-bottom: 3px; }
-			h1 .small { font-size: 0.4em; color: #444; }
+			h1 .small { font-size: 0.8em; color: #444; }
 			h1 a { text-decoration: none }
 			h2 { font-size: 1.5em; color: #000000; }
 			h3 { color: #000000; }
-			h3 .small { font-size: 0.2em; font-weight: normal; }
+			h3 .small { font-size: 0.8em; font-weight: normal; }
 			a { color: #000000; }
 			.description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
 			.download { float: right; }
