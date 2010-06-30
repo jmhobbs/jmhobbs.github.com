@@ -13,6 +13,7 @@ your needs, then run generator.py
  - [Python 2.6](http://www.python.org/) (other versions probably work fine)
  - [py-github](http://github.com/dustin/py-github)
  - [PyYAML](http://pyyaml.org/)
+ - [pystache](http://github.com/defunkt/pystache)
 
 # What does the output look like?
 

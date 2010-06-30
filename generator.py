@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 
-
-import github.github as github
-import yaml
 import time
 from datetime import datetime
+
+import yaml
+import github.github as github
+import pystache
 
 def repo_date_to_epoch ( date ):
 	epoch = time.mktime(
@@ -34,74 +35,50 @@ def main ():
 	repos = sorted( repos, cmp=lambda a, b: repo_date_to_epoch( b.pushed_at ) - repo_date_to_epoch( a.pushed_at ) )
 
 	print "Loading template..."
-	f = open( 'index.html.tpl' )
+	f = open( 'index.mustache' )
 	template = f.read()
 	f.close()
 
 	print "Mangling template..."
-	template = template.replace( '<% username %>', settings['username'] )
-	template = template.replace( '<% fullname %>', user.name )
-	template = template.replace( '<% email %>', user.email )
-	template = template.replace( '<% following %>', str( user.following_count ) )
-	template = template.replace( '<% followers %>', str( user.followers_count ) )
-	template = template.replace( '<% publicrepos %>', str( user.public_repo_count ) )
-
-	repo_string = ''
-
+	context = {
+		'username': settings['username'],
+		'fullname': user.name,
+		'email': user.email,
+		'following': str( user.following_count ),
+		'followers': str( user.followers_count ),
+		'publicrepos': str( user.public_repo_count ),
+		'repos': [],
+		'ga_code': settings['google_analytics']
+	}
 	for repo in repos:
+	
 		if repo.private:
 			continue
 
-		repo_string = repo_string + '<div class="repo"><h3><a href="' + repo.url + '">' + repo.name + '</a>'
+		repo_context = {}
+		repo_context['url'] = repo.url
+		repo_context['name'] = repo.name
+		repo_context['forks'] = repo.forks
+		repo_context['watchers'] = repo.watchers
+		repo_context['username'] = settings['username']
+		repo_context['has_issues'] = repo.has_issues
+		repo_context['has_wiki'] = repo.has_wiki
+		repo_context['has_downloads'] = repo.has_downloads
+		repo_context['last_push'] = datetime.fromtimestamp( repo_date_to_epoch( repo.pushed_at ) ).ctime()
+		
+		try:
+			repo_context['homepage'] = repo.homepage
+		except AttributeError:
+			repo_context['homepage'] = False
 
 		try:
-			repo_string = repo_string + ' - <span class="small"><a href="' + repo.homepage + '">' + repo.homepage + '</a></span>'
+			repo_context['description'] = repo.description
 		except AttributeError:
-			pass
+			repo_context['description'] = False
+		
+		context['repos'].append( repo_context )
 
-		repo_string = repo_string + '</h3>'
-
-		repo_string = repo_string + "Forks: " + str( repo.forks ) + " - Watchers: " + str( repo.watchers ) + ' | '
-
-		if repo.has_issues:
-			repo_string = repo_string + ' <a href="' + repo.url + '/issues">Issues</a> |'
-
-		if repo.has_wiki:
-			repo_string = repo_string + ' <a href="http://wiki.github.com/' + settings['username'] + '/' + repo.name + '">Wiki</a> |'
-
-		if repo.has_downloads:
-			repo_string = repo_string + ' <a href="' + repo.url + '/downloads">Downloads</a> |'
-
-		repo_string = repo_string + '<br/>Last Push: ' + datetime.fromtimestamp( repo_date_to_epoch( repo.pushed_at ) ).ctime()
-
-		try:
-			repo_string = repo_string + '<pre>' + repo.description + '</pre>'
-		except AttributeError:
-			repo_string = repo_string + '<br/><br/>'
-			pass
-
-		repo_string = repo_string + "</div><!--// .repo //-->\n"
-
-	template = template.replace( '<% repos %>', repo_string )
-
-	ga = """
-		<script type="text/javascript">
-			var _gaq = _gaq || [];
-			_gaq.push(['_setAccount', '<% ga_code %>']);
-			_gaq.push(['_trackPageview']);
-			(function() {
-				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-			})();
-		</script>
-	"""
-
-	if False != settings['google_analytics']:
-		template = template.replace( '<% google_analytics %>', ga )
-		template = template.replace( '<% ga_code %>', settings['google_analytics'] )
-	else:
-		template = template.replace( '<% google_analytics %>', '' )
+	template = pystache.render( template, context )
 
 	print "Writing file..."
 	f = open( 'index.html', 'w' )
