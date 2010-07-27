@@ -50,8 +50,9 @@ def main ():
 		'repos': [],
 		'ga_code': settings['google_analytics']
 	}
+
 	for repo in repos:
-	
+
 		if repo.private:
 			continue
 
@@ -65,7 +66,7 @@ def main ():
 		repo_context['has_wiki'] = repo.has_wiki
 		repo_context['has_downloads'] = repo.has_downloads
 		repo_context['last_push'] = datetime.fromtimestamp( repo_date_to_epoch( repo.pushed_at ) ).ctime()
-		
+
 		try:
 			repo_context['homepage'] = repo.homepage
 		except AttributeError:
@@ -75,7 +76,7 @@ def main ():
 			repo_context['description'] = repo.description
 		except AttributeError:
 			repo_context['description'] = False
-		
+
 		context['repos'].append( repo_context )
 
 	template = pystache.render( template, context )
