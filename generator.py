@@ -34,6 +34,11 @@ def main ():
 	print "Sorting repositories..."
 	repos = sorted( repos, cmp=lambda a, b: repo_date_to_epoch( b.pushed_at ) - repo_date_to_epoch( a.pushed_at ) )
 
+	# We don't want to bother if the only thing updated was this repo.
+	if repos[0].name == settings['reponame']:
+		print "No new commits!"
+		exit()
+
 	print "Loading template..."
 	f = open( 'index.mustache' )
 	template = f.read()
