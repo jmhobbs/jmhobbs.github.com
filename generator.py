@@ -30,12 +30,11 @@ def main ():
 
 	print "Fetching repository information..."
 	# At some point, GH went to pagination of repo lists
-	# Small workaround until py-github fixes it
 	repos = []
 	page = 1
 	while page == 1 or len(tmp) >= 30:
 		print "\tPage", page
-		tmp = gh.repos.forUser( settings['username'] + "?page=" + str( page ) )
+		tmp = gh.repos.forUser( settings['username'], page )
 		repos.extend(tmp)
 		page += 1
 
