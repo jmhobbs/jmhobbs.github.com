@@ -29,7 +29,16 @@ def main ():
 	user = gh.users.show( settings['username'] )
 
 	print "Fetching repository information..."
-	repos = gh.repos.forUser( settings['username'] )
+	# At some point, GH went to pagination of repo lists
+	# Small workaround until py-github fixes it
+	repos = []
+	page = 1
+	while page == 1 or len(tmp) >= 30:
+		print "\tPage", page
+		tmp = gh.repos.forUser( settings['username'] + "?page=" + str( page ) )
+		repos.extend(tmp)
+		page += 1
+
 
 	print "Sorting repositories..."
 	repos = sorted( repos, cmp=lambda a, b: repo_date_to_epoch( b.pushed_at ) - repo_date_to_epoch( a.pushed_at ) )
