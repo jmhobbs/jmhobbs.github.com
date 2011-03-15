@@ -1,8 +1,9 @@
 body {
 	margin-top: 1.0em;
-	background-color: #ffffff;
+	background: #FFF url(noise.png);
 	font-family: "Helvetica,Arial,FreeSans";
 	color: #000000;
+	text-shadow: 0 0 2px #FFF;
 }
 #container {
 	margin: 0 auto;
@@ -17,7 +18,7 @@ h3 .small { font-size: 0.8em; font-weight: normal; }
 a { color: #000000; }
 .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
 .download { float: right; }
-pre { background: #000; color: #fff; padding: 15px;}
+pre { background: #000; color: #fff; padding: 15px; text-shadow: 0;}
 hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
 .footer { text-align:center; padding-top:30px; font-style: italic; }
-.repo { padding: 0 10px; border: 1px solid #777; margin: 5px 0; }
+.repo { padding: 0 10px; border: 1px solid #777; margin: 5px 0; background: #EEE; text-shadow: 0 0 2px #999; }
