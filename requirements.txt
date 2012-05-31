@@ -1,0 +1,5 @@
+PyYAML==3.10
+distribute==0.6.10
+-e git+https://github.com/dustin/py-github.git#egg=github
+pystache==0.5.2
+wsgiref==0.1.2
