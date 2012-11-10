@@ -1,29 +1,27 @@
 # -*- coding: utf-8 -*-
 
-import time
-from datetime import datetime
-
 import yaml
 from github import Github
 import pystache
 
-def main ():
+
+def main():
 
     print "Loading settings...."
-    f = open( 'settings.yaml' )
-    settings = yaml.load( f )
+    f = open('settings.yaml')
+    settings = yaml.load(f)
     f.close()
 
     gh = Github()
 
     print "Fetching user information..."
-    user = gh.get_user( settings['username'] )
+    user = gh.get_user(settings['username'])
 
     print "Fetching repository information..."
-    repos = user.get_repos( settings['username'] )
+    repos = user.get_repos(settings['username'])
 
     print "Sorting repositories..."
-    repos = sorted( repos, reverse=True, key=lambda a: a.pushed_at )
+    repos = sorted(repos, reverse=True, key=lambda a: a.pushed_at)
 
     # We don't want to bother if the only thing updated was this repo.
     if repos[0].name == settings['reponame']:
@@ -31,21 +29,21 @@ def main ():
         exit()
 
     print "Loading template..."
-    f = open( 'index.mustache' )
+    f = open('index.mustache')
     template = f.read()
     f.close()
 
     print "Mangling template..."
     context = {
-            'username': settings['username'],
-            'fullname': user.name,
-            'email': user.email,
-            'following': str( user.following ),
-            'followers': str( user.followers ),
-            'publicrepos': str( user.public_repos ),
-            'repos': [],
-            'ga_code': settings['google_analytics']
-            }
+        'username': settings['username'],
+        'fullname': user.name,
+        'email': user.email,
+        'following': str(user.following),
+        'followers': str(user.followers),
+        'publicrepos': str(user.public_repos),
+        'repos': [],
+        'ga_code': settings['google_analytics']
+    }
 
     for repo in repos:
 
@@ -73,13 +71,13 @@ def main ():
         except AttributeError:
             repo_context['description'] = False
 
-        context['repos'].append( repo_context )
+        context['repos'].append(repo_context)
 
-    template = pystache.render( template, context )
+    template = pystache.render(template, context)
 
     print "Writing file..."
-    f = open( 'index.html', 'w' )
-    f.write( template )
+    f = open('index.html', 'w')
+    f.write(template)
     f.close()
 
     print "Done!"
