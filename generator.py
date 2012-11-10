@@ -53,7 +53,7 @@ def main ():
             continue
 
         repo_context = {}
-        repo_context['url'] = repo.url
+        repo_context['url'] = repo.html_url
         repo_context['name'] = repo.name
         repo_context['forks'] = repo.forks
         repo_context['watchers'] = repo.watchers
