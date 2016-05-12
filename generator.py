@@ -76,8 +76,8 @@ def main():
     template = pystache.render(template, context)
 
     print "Writing file..."
-    f = open('index.html', 'w')
-    f.write(template)
+    f = open('index.html', 'wb')
+    f.write(template.encode('utf8'))
     f.close()
 
     print "Done!"
