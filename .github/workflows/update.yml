@@ -19,5 +19,7 @@ jobs:
       - name: Commit
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
+          with:
+            ref: ${{ github.head_ref }}
           file_pattern: '*.html'
           commit_message: 'Daily Update'
