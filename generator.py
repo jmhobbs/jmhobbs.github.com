@@ -1,49 +1,61 @@
 # -*- coding: utf-8 -*-
 
-import yaml
 from github import Github
 import pystache
+import os
+
+def google_analytics_id():
+    try:
+        return os.environ['GOOGLE_ANALYTICS_ID']
+    except:
+        return False
 
 
 def main():
-
-    print "Loading settings...."
-    f = open('settings.yaml')
-    settings = yaml.load(f)
-    f.close()
+    print("Loading settings....")
+    settings = {
+            'username': os.environ['GITHUB_REPOSITORY_OWNER'],
+            'reponame': os.environ['GITHUB_REPOSITORY'].split('/')[-1],
+            'google_analytics': google_analytics_id(),
+            }
 
     gh = Github()
 
-    print "Fetching user information..."
+    print("Fetching user information...")
     user = gh.get_user(settings['username'])
 
-    print "Fetching repository information..."
+    print("Fetching repository information...")
     repos = user.get_repos(settings['username'])
 
-    print "Sorting repositories..."
+    print("Sorting repositories...")
     repos = sorted(repos, reverse=True, key=lambda a: a.pushed_at)
 
     # We don't want to bother if the only thing updated was this repo.
     if repos[0].name == settings['reponame']:
-        print "No new commits!"
+        print("No new commits!")
         exit()
 
-    print "Loading template..."
+    # Same for GitHub README page
+    if repos[0].name == settings['username']:
+        print("No new commits!")
+        exit()
+
+    print("Loading template...")
     f = open('index.mustache')
     template = f.read()
     f.close()
 
-    print "Mangling template..."
+    print("Mangling template...")
     context = {
-        'username': settings['username'],
-        'fullname': user.name,
-        'email': user.email,
-        'following': str(user.following),
-        'followers': str(user.followers),
-        'publicrepos': str(user.public_repos),
-        'repos': [],
-        'ga_code': settings['google_analytics']
-    }
+            'username': settings['username'],
+            'fullname': user.name,
+            'email': user.email,
+            'following': str(user.following),
+            'followers': str(user.followers),
+            'publicrepos': str(user.public_repos),
+            'repos': [],
+            'ga_code': settings['google_analytics']
+            }
 
     for repo in repos:
 
@@ -75,12 +87,12 @@ def main():
 
     template = pystache.render(template, context)
 
-    print "Writing file..."
+    print("Writing file...")
     f = open('index.html', 'wb')
     f.write(template.encode('utf8'))
     f.close()
 
-    print "Done!"
+    print("Done!")
 
 if __name__ == "__main__":
     main()
