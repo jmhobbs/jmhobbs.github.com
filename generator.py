@@ -57,12 +57,17 @@ def main():
         repo_context['url'] = repo.html_url
         repo_context['name'] = repo.name
         repo_context['forks'] = repo.forks
-        repo_context['watchers'] = repo.watchers
+        repo_context['stargazers'] = repo.stargazers_count
         repo_context['username'] = settings['username']
         repo_context['has_issues'] = repo.has_issues
         repo_context['has_wiki'] = repo.has_wiki
         repo_context['has_downloads'] = repo.has_downloads
         repo_context['last_push'] = repo.pushed_at.ctime()
+        repo_context['archived'] = repo.archived
+        repo_context['open_issues_count'] = repo.open_issues_count
+        repo_context['stargazers_url'] = repo.stargazers_url
+        repo_context['forks_url'] = repo.forks_url
+        repo_context['issues_url'] = repo.issues_url
 
         try:
             repo_context['homepage'] = repo.homepage

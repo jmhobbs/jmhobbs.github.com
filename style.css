@@ -53,13 +53,13 @@ header a, header a:visited, header a:active {
 }
 
 
-header ul {
+ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-header ul li {
+ul li {
   display: inline;
   margin-right: 1rem;
 }
@@ -75,6 +75,7 @@ section > h2 {
 section div.container {
   display: flex;
   flex-wrap: wrap;
+  align-items: start;
 }
 
 div.repo {
@@ -100,6 +101,11 @@ div.repo p {
 
 div.repo:hover {
   background: #F7F9F9;
+}
+
+div.repo ul {
+  border-top: 1px solid #A76D60;
+  padding-top: 0.5rem;
 }
 
 footer {

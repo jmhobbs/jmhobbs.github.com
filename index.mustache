@@ -21,13 +21,13 @@
       {{#repos}}
         <div class="repo">
           <h3><a href="{{url}}">{{name}}</a></h3>
-          {{#description}}
           <p>{{description}}</p>
-          {{/description}}
-          {{#homepage}}
-          <p><a href="{{homepage}}">{{homepage}}</a></p>
-          {{/homepage}}
-          <p>Forks: {{forks}} | Stars: {{watchers}}</p>
+          <p>{{#homepage}}<a href="{{homepage}}">{{homepage}}</a>{{/homepage}}</p>
+          <ul>
+            <li>Forks: <a href="{{forks_url}}">{{forks}}</a></li>
+            <li>Stars: <a href="{{stargazers_url}}">{{stargazers}}</a></li>
+            <li>Issues: <a href="{{issues_url}}">{{open_issues_count}}</a></li>
+          </ul>
         </div>
       {{/repos}}
       </div>
