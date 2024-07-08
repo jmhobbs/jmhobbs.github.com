@@ -4,19 +4,11 @@ from github import Github
 import pystache
 import os
 
-def google_analytics_id():
-    try:
-        return os.environ['GOOGLE_ANALYTICS_ID']
-    except:
-        return False
-
-
 def main():
     print("Loading settings....")
     settings = {
             'username': os.environ['GITHUB_REPOSITORY_OWNER'],
             'reponame': os.environ['GITHUB_REPOSITORY'].split('/')[-1],
-            'google_analytics': google_analytics_id(),
             }
 
     gh = Github()
@@ -53,8 +45,7 @@ def main():
             'following': str(user.following),
             'followers': str(user.followers),
             'publicrepos': str(user.public_repos),
-            'repos': [],
-            'ga_code': settings['google_analytics']
+            'repos': []
             }
 
     for repo in repos:
