@@ -78,6 +78,10 @@ section div.container {
   align-items: start;
 }
 
+.fade {
+  color: rgb(247 249 249 / 40%)
+}
+
 div.repo {
   background: #E0D0C1;
   margin: 0 2rem 2rem 0;

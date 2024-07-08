@@ -9,7 +9,11 @@ def main():
     settings = {
             'username': os.environ['GITHUB_REPOSITORY_OWNER'],
             'reponame': os.environ['GITHUB_REPOSITORY'].split('/')[-1],
+            'website': None
             }
+
+    if 'WEBSITE' in os.environ:
+        settings['website'] = os.environ['WEBSITE']
 
     gh = Github()
 
@@ -39,6 +43,7 @@ def main():
 
     print("Mangling template...")
     context = {
+            'website': settings['website'],
             'username': settings['username'],
             'fullname': user.name,
             'email': user.email,

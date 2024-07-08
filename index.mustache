@@ -7,7 +7,11 @@
 	</head>
 	<body>
     <header>
-      <h1><a href="http://github.com/{{username}}">@{{username}}</a> is {{fullname}}</h1>
+      <h1>
+        <a href="http://github.com/{{username}}">
+        <span class="fade">github.com/</span>{{username}}</a> is
+        {{#website}}<a href="{{website}}">{{/website}}{{fullname}}{{#website}}</a>{{/website}}
+      </h1>
       <ul>
         <li>Following: <a href="https://github.com/{{username}}?tab=following">{{following}}</a></li>
         <li>Followers: <a href="https://github.com/{{username}}?tab=followers">{{followers}}</a></li>
