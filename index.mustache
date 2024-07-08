@@ -3,50 +3,37 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<title>{{username}} @ GitHub</title>
-		<link rel="stylesheet" href="style.css" media="screen" />
+		<link rel="stylesheet" href="style.css?v=2" media="screen" />
 	</head>
 	<body>
-		<a href="http://github.com/{{username}}">
-			<img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" />
-		</a>
-		<div id="container">
-			<h1>
-				<a href="http://github.com/{{username}}">{{username}}</a>
-				<span class="small">is {{fullname}}</span>
-			</h1>
+    <header>
+      <h1><a href="http://github.com/{{username}}">@{{username}}</a> is {{fullname}}</h1>
+      <ul>
+        <li>Following: <a href="https://github.com/{{username}}?tab=following">{{following}}</a></li>
+        <li>Followers: <a href="https://github.com/{{username}}?tab=followers">{{followers}}</a></li>
+        <li>Public Repositories: <a href="https://github.com/jmhobbs?tab=repositories">{{publicrepos}}</a></li>
+      </ul>
+    </header>
 
-			<div class="description">
-				Following: {{following}} - Followers: {{followers}} - Public Repositories: {{publicrepos}}
-			</div>
-			
-			<h2>Public Repositories</h2>
-			
-			{{#repos}}
-			<div class="repo">
-				<h3>
-					<a href="{{url}}">{{name}}</a>
-					{{#homepage}}
-					<br/><span class="small"><a href="{{homepage}}">{{homepage}}</a></span>
-					{{/homepage}}
-				</h3>
-				Forks: {{forks}} - Watchers: {{watchers}} | 
-				{{#has_issues}}<a href="{{url}}/issues">Issues</a> | {{/has_issues}}
-				{{#has_wiki}}<a href="http://wiki.github.com/{{username}}/{{name}}">Wiki</a> | {{/has_wiki}}
-				{{#has_downloads}}<a href="{{url}}/downloads">Downloads</a> | {{/has_downloads}}
-				<br/>
-				Last Push: {{last_push}}
-				{{#description}}
-				<pre>{{description}}</pre>
-				{{/description}}
-				{{^description}}<br/><br/>{{/description}}
-			</div><!--// .repo //-->
-			
-			{{/repos}}
-			
-			<div class="footer">
-				contact via {{email}} or on <a href="http://github.com/{{username}}">GitHub</a>
-			</div>
-
-		</div><!--// #container //-->
-	</body>
+    <section>
+      <h2>Public Repositories</h2>
+      <div class="container">
+      {{#repos}}
+        <div class="repo">
+          <h3><a href="{{url}}">{{name}}</a></h3>
+          {{#description}}
+          <p>{{description}}</p>
+          {{/description}}
+          {{#homepage}}
+          <p><a href="{{homepage}}">{{homepage}}</a></p>
+          {{/homepage}}
+          <p>Forks: {{forks}} | Stars: {{watchers}}</p>
+        </div>
+      {{/repos}}
+      </div>
+    </section>
+    <footer>
+      Contact me {{#email}}via {{email}} or {{/email}}on <a href="http://github.com/{{username}}">GitHub</a>
+    </footer>
+  </body>
 </html>
