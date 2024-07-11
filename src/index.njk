@@ -21,16 +21,16 @@
 
     <section>
       <div class="container">
-        {% for repo in repos %}
+        {%- for repo in repos %}
         <div class="repo">
           <h3>
             <a href="{{ repo.html_url }}">{{ repo.name }}</a>
-            {% if repo.archived %}
+            {%- if repo.archived %}
             <svg class="icon" viewBox="0 0 24 24" width="24" height="24"><title>Archived</title><use xlink:href="#archived-icon"></use></svg>
-            {% endif %}
-            {% if repo.fork %}
+            {%- endif %}
+            {%- if repo.fork %}
             <svg class="icon" viewBox="0 0 24 24" width="24" height="24"><title>Forked</title><use xlink:href="#forked-icon"></use></svg>
-            {% endif %}
+            {%- endif %}
           </h3>
           <p>{{ repo.description }}</p>
           <p>{% if repo.homepage %}<a href="{{ repo.homepage }}">{{ repo.homepage }}</a>{% endif %}</p>
@@ -40,7 +40,7 @@
             <li>Issues: <a href="{{ repo.html_url}}/issues">{{ repo.open_issues_count }}</a></li>
           </ul>
         </div>
-      {% endfor %}
+      {%- endfor %}
       </div>
     </section>
     <footer>
