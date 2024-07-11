@@ -1,0 +1,128 @@
+/* Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+}
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+input, button, textarea, select {
+  font: inherit;
+}
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+#root, #__next {
+  isolation: isolate;
+}
+
+/* Styles */
+
+* {
+  font-family: Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif;
+}
+
+body {
+  background: #F7F9F9;
+}
+
+a, a:visited, a:active {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+header {
+  background: #00A676;
+  padding: 1rem 2rem;
+  color: #F7F9F9;
+  border-bottom: 4px solid #DCDEDE;
+}
+
+header a, header a:visited, header a:active {
+  color: #F7F9F9;
+}
+
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul li {
+  display: inline;
+  margin-right: 1rem;
+}
+
+section {
+  padding: 1rem 2rem;
+}
+
+section > h2 {
+  margin-bottom: 1rem;
+}
+
+section div.container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
+}
+
+.fade {
+  color: rgb(247 249 249 / 40%)
+}
+
+div.repo {
+  background: #E0D0C1;
+  margin: 0 2rem 2rem 0;
+  padding: 0.5rem 1rem;
+  border: 2px solid #A76D60;
+  transition: background-color 0.25s ease;
+}
+
+div.repo a {
+  color: #601700;
+}
+
+div.repo h3 {
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+div.repo h3 svg {
+  float: right;
+}
+
+div.repo p {
+  margin: 0.5rem 0;
+}
+
+div.repo:hover {
+  background: #F7F9F9;
+}
+
+div.repo ul {
+  border-top: 1px solid #A76D60;
+  padding-top: 0.5rem;
+}
+
+footer {
+  background: #00A676;
+  padding: 1rem 2rem;
+  color: #F7F9F9;
+  border-top: 4px solid #DCDEDE;
+}
+
+footer a {
+  color: #F7F9F9;
+}

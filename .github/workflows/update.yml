@@ -16,10 +16,40 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ github.head_ref }}
-      - name: Install
-        run: pip install -r requirements.txt
-      - name: Build
-        run: python generator.py
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts
+
+      - name: Node Modules Cache
+        uses: actions/cache/restore@v4
+        with:
+          path: node_modules
+          key: node_modules-cache
+
+      - run: npm ci
+
+      - name: Node Modules Cache
+        uses: actions/cache/save@v4
+        with:
+          path: node_modules
+          key: node_modules-cache
+
+      - name: 11ty Cache
+        uses: actions/cache/restore@v4
+        with:
+          path: .cache
+          key: 11ty-cache
+
+      - run: npm run build
+
+      - name: Save 11ty Cache
+        uses: actions/cache/save@v4
+        with:
+          path: .cache
+          key: 11ty-cache
+
       - name: Commit
         uses: stefanzweifel/git-auto-commit-action@v5
         with:

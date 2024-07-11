@@ -99,6 +99,10 @@ div.repo h3 {
   font-size: 1.25rem;
 }
 
+div.repo h3 svg {
+  float: right;
+}
+
 div.repo p {
   margin: 0.5rem 0;
 }
