@@ -4,7 +4,7 @@
   "description": "This repository is both my personal GitHub page, as well as the generator code that I use to make it.",
   "main": "index.js",
   "scripts": {
-    "dev": "npx @11ty/eleventy --input=./src --output=docs --serve",
+    "dev": "BUILD_ANYTHING=true npx @11ty/eleventy --input=./src --output=docs --serve",
     "build": "npx @11ty/eleventy --input=./src --output=docs"
   },
   "keywords": [],

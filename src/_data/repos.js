@@ -38,8 +38,17 @@ module.exports = async function () {
   return repos;
 };
 
+// Check if the most recently changed repo is one we do not
+// want to rebuild on in CI, and throw an error if so.
 function throwIfLatestRepoIsExcluded(repos) {
-  if(config.excludedRepos.includes(repos[0].name) || repos[0].name == config.username) {
+  if(
+    // Set BUILD_ANYTHING=true in dev to bypass this check
+    process.env.BUILD_ANYTHING !== "true" &&
+    (
+      config.excludedRepos.includes(repos[0].name) ||
+      repos[0].name == config.username
+    )
+  ) {
     throw new Error('No new changes, skipping build');
   }
 }
