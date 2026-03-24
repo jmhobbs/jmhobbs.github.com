@@ -1,3 +1,4 @@
 settings.yaml
 .cache/
 .envrc
+node_modules/
